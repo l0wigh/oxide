@@ -14,6 +14,8 @@ use tui_markdown;
 use crate::config::Config;
 use crate::rss_def::OxideArticle;
 
+const OXIDE_VERSION: &str = env!("CARGO_PKG_VERSION");
+
 pub enum WinState {
     Feeds,
     Articles,
@@ -272,7 +274,10 @@ impl App {
 impl Widget for &mut App {
     fn render(self, area: Rect, buf: &mut Buffer) {
         let oxide_title = Line::from(" Oxide RSS Reader ".to_string().bold().red());
-        let outer_block = Block::bordered().title(oxide_title);
+        let oxide_version = Line::from(format!(" {} ", OXIDE_VERSION).to_string().bold().red());
+        let outer_block = Block::bordered()
+            .title(oxide_title)
+            .title_bottom(oxide_version.right_aligned());
         let inner_area = outer_block.inner(area);
         outer_block.render(area, buf);
 
