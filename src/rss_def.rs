@@ -4,7 +4,7 @@ pub struct OxideArticle {
     pub link: String,
     pub content: String,
     // pub author: String,
-    // pub published_at: String,
+    pub published_at: String,
     pub is_read: bool,
 }
 
@@ -33,14 +33,22 @@ impl From<rss::Item> for OxideArticle {
         //     })
         //     .unwrap_or("Unknown Author")
         //     .to_string();
-        // let published_at = item.pub_date().unwrap_or("Unknown date").to_string();
+        let published_at = item
+            .pub_date()
+            .unwrap_or("Unknown date")
+            .to_string()
+            .split_at(16)
+            .0
+            .split_at(5)
+            .1
+            .to_string();
         OxideArticle {
             // guid,
             title,
             link,
             content,
             // author,
-            // published_at,
+            published_at,
             is_read: false,
         }
     }

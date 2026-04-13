@@ -303,9 +303,9 @@ impl Widget for &mut App {
             .iter()
             .map(|a| {
                 if !a.is_read {
-                    Line::from(a.title.clone()).bold()
+                    Line::from(format!("{} - {}", a.published_at.clone(), a.title.clone())).bold()
                 } else {
-                    Line::from(a.title.clone()).italic()
+                    Line::from(format!("{} - {}", a.published_at.clone(), a.title.clone())).italic()
                 }
             })
             .collect();
